@@ -21,9 +21,12 @@
   if (isVideo) { media.controls = true; media.playsInline = true; media.preload = 'metadata'; }
   stage.replaceChildren(media);
 
+  const top = document.getElementById('top');
+  if (g.title) { document.getElementById('caption').textContent = g.title; document.title = g.title; }
+  top.hidden = false;
   const a = document.createElement('a');
   a.className = 'save';
   a.href = `${src}?download=${encodeURIComponent('podarunok.' + ext)}`;
   a.textContent = '⬇ Зберегти';
-  document.body.appendChild(a);
+  top.appendChild(a);
 })();

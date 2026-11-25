@@ -204,6 +204,7 @@ async function load() {
           <button class="btn sm" data-pdf="${g.token}">PDF</button>
           <button class="btn sm" data-png="${g.token}">QR PNG</button>
           <button class="btn sm" data-copy="${giftUrl(g.token)}">Копіювати</button>
+          <button class="btn sm" data-title="${g.token}">Підпис</button>
           <button class="btn sm danger" data-del="${g.token}">Видалити</button>
         </div>
       </div>
@@ -222,6 +223,15 @@ document.addEventListener('click', async (e) => {
   if (copy) {
     await navigator.clipboard.writeText(copy.dataset.copy).catch(() => prompt('Скопіюйте посилання:', copy.dataset.copy));
     const old = copy.textContent; copy.textContent = 'Скопійовано ✓'; setTimeout(() => (copy.textContent = old), 1500);
+  }
+  const ttl = t('title');
+  if (ttl) {
+    const g = byToken(ttl.dataset.title);
+    const v = prompt('Підпис, який людина побачить зверху (можна залишити порожнім):', g.title || '');
+    if (v !== null) {
+      const { error } = await sb.from('gifts').update({ title: v.trim().slice(0, 120) }).eq('token', g.token);
+      if (error) alert('Не вдалося зберегти: ' + error.message); else load();
+    }
   }
   const del = t('del');
   if (del && confirm('Видалити подарунок? QR-код перестане працювати.')) {
