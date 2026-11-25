@@ -1,0 +1,52 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Адмінка подарунків</title>
+<link rel="stylesheet" href="css/admin.css"></head>
+<body>
+<div id="loginView" class="center" hidden>
+  <form class="panel login" id="loginForm">
+    <h1>🎄 Адмінка подарунків</h1>
+    <label>Логін<input type="text" name="login" autocomplete="username" autocapitalize="none" spellcheck="false" required></label>
+    <label>Пароль<input type="password" name="password" autocomplete="current-password" required></label>
+    <p class="err" id="loginErr" hidden></p>
+    <button class="primary">Увійти</button>
+  </form>
+</div>
+
+<div id="appView" hidden>
+<header class="top">
+  <h1>🎄 Новорічні подарунки</h1>
+  <button class="ghost" id="logout">Вийти</button>
+</header>
+<main class="wrap">
+  <section class="panel">
+    <h2>Новий подарунок</h2>
+    <form id="form">
+      <label class="drop" id="drop">
+        <input type="file" name="file" id="file" accept="image/*,video/mp4,video/quicktime,video/webm,.mov,.mp4" required>
+        <span id="dropText"></span>
+        <div id="preview"></div>
+      </label>
+      <label>Для кого (бачите тільки ви, щоб не плутати QR-коди)<input name="title" maxlength="120" placeholder="Напр.: Мама"></label>
+      <div class="progress" id="progress" hidden><div id="bar"></div><span id="pct"></span></div>
+      <p class="err" id="err" hidden></p>
+      <button class="primary" id="submit">Завантажити і створити QR-код</button>
+    </form>
+  </section>
+
+  <section id="result" class="panel result" hidden></section>
+
+  <section class="panel">
+    <h2>Усі подарунки <span id="count" class="muted"></span></h2>
+    <div id="list" class="list"><p class="muted">Завантаження…</p></div>
+  </section>
+</main>
+</div>
+<p class="center" id="cfgErr" hidden style="padding:24px"></p>
+<script src="config.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="vendor/jspdf.umd.min.js"></script>
+<script src="js/card.js"></script>
+<script src="js/admin.js"></script>
+</body></html>
