@@ -2,7 +2,9 @@
   const stage = document.getElementById('stage');
   const note = (t) => { stage.innerHTML = `<p class="note">${t}</p>`; };
   const token = new URLSearchParams(location.search).get('g');
-  if (!token || !/^[A-Za-z0-9_-]{16,64}$/.test(token)) return note('Відскануйте QR-код, щоб відкрити подарунок.');
+  // Без коду подарунка головна адреса веде в адмінку
+  if (!token) return location.replace('admin.html');
+  if (!/^[A-Za-z0-9_-]{16,64}$/.test(token)) return note('Такого подарунка не існує.');
 
   const { SUPABASE_URL, SUPABASE_ANON_KEY } = window.APP_CONFIG;
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
